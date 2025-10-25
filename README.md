@@ -54,6 +54,13 @@ RobotDriver
     playwright install
     ```
 
+Or simply use doker as follows:
+
+```bash
+docker build -t fastapi-sauce .
+docker run -p 8000:8000 --name fastapi-suace fastapi-sauce
+```
+
 ## Run the API
 
 Start the FastAPI server (development mode):
