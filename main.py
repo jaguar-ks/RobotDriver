@@ -1,15 +1,13 @@
-import asyncio
 from fastapi import FastAPI, Query
 from SauceDemo import SauceDemoAutomation
 
 
 app = FastAPI(title="SauceDemo automation API")
 
+
 @app.get("/run")
 async def run_automation(product: str = Query(..., description="Product name to search")):
     automator = SauceDemoAutomation(headless=True)
-
-    # ✅ Correctly await the coroutine
     try:
         price = await automator.run(product)
 
@@ -27,4 +25,3 @@ async def run_automation(product: str = Query(..., description="Product name to 
         return {
             'status': f"Error: {e}"
         }
-
