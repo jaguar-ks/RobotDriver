@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Query
+from fastapi import FastAPI, Query, Response, status
 from SauceDemo import SauceDemoAutomation
 from typing import Any, Dict
 
@@ -16,6 +16,7 @@ app = FastAPI(
     summary="Execute product search automation"
 )
 async def run_automation(
+    response: Response,
     product: str = Query(
         ...,
         description="""The exact name of the product to search for after
@@ -40,16 +41,18 @@ async def run_automation(
 
         if price:
             return {
-                'status': '✅ Success!',
-                'product': product,
-                'price': price
+                'status': 'success',
+                'details': f'✅ Product ({product}) found! with price: {price}'
                 }
         else:
+            response.status_code = status.HTTP_404_NOT_FOUND
             return {
-                'status': f'❌ Failed!: product ({product}) not found.'
-                    }
+                'status': 'Error',
+                'details': f'❌ Failed!: product ({product}) not found.'
+                }
     except Exception as e:
+        response.status_code = status.HTTP_500_INTERNAL_SERVER_ERROR
         return {
             'status': "Error",
-            'detail': f"An error occurred: {e.__class__.__name__}: {e}"
+            'detail': f"❌ Error occurred: {e.__class__.__name__}: {e}"
         }
