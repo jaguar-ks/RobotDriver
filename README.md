@@ -30,36 +30,36 @@ RobotDriver
 
 1. Clone or copy project to your machine:
 
-```bash
-git clone https://github:jagur-ks/RobotDriver.git
-```
+    ```bash
+    git clone https://github:jagur-ks/RobotDriver.git
+    ```
 
 1. Create and activate virtual environment:
 
-```bash
-python -m venv .venv
-source .venv/bin/activate
-```
+    ```bash
+    python -m venv .venv
+    source .venv/bin/activate
+    ```
 
 1. Install Python dependencies:
 
-```bash
-pip install --upgrade pip
-pip install -r requirements.txt
-```
+    ```bash
+    pip install --upgrade pip
+    pip install -r requirements.txt
+    ```
 
 1. Install Playwright browsers:
 
-```bash
-playwright install
-```
+    ```bash
+    playwright install
+    ```
 
 ## Run the API
 
 Start the FastAPI server (development mode):
 
 ```bash
-uvicorn main:app --reload --host 0.0.0.0 --port 8000
+uvicorn main:app --reload --port 8000
 ```
 
 The service will be available at `http://localhost:8000`.
