@@ -4,6 +4,7 @@ from typing import Any, Dict
 
 app = FastAPI(
     title="SauceDemo automation API",
+    docs_url="/docs",
     description="""An API service that uses Playwright to log
     into SauceDemo.com and retrieve product prices.""",
     version='1.0.0'

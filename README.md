@@ -64,6 +64,8 @@ uvicorn main:app --reload --port 8000
 
 The service will be available at `http://localhost:8000`.
 
+> `N.B`: The service swager also available at `http://localhost:8000/docs`
+
 ## Endpoint
 
 `GET /run`
