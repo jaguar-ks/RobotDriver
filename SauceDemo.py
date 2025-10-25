@@ -45,7 +45,7 @@ class SauceDemoAutomation:
         Searches for a product and returns its price.
         """
         if not self.__page:
-            return None
+            raise RuntimeError("Page not initialized.")
 
         print(f"Searching for '{product_name}'...")
         try:
@@ -87,7 +87,7 @@ class SauceDemoAutomation:
 
 
 async def main():
-    product = "Sauce Labs Backpack tota"
+    product = "Sauce Labs Backpack"
     automator = SauceDemoAutomation(headless=False)
     await automator.run(product)
 
