@@ -31,18 +31,33 @@ class SauceDemoAutomation:
     async def login(self) -> None:
         """
         Navigates to the base URL, fills in the standard user credentials,
-        clicks the login button, and waits for the 'Products' heading to appear.
+        clicks the login button, and waits for the 'Products' heading to
+        appear.
 
-        :raises RuntimeError: If any step of the login process fails (e.g., navigation,
-                              element interaction, or the 'Products' heading doesn't appear).
+        :raises RuntimeError: If any step of the login process fails
+        (e.g., navigation, element interaction, or the 'Products' heading
+        doesn't appear).
         """
 
         try:
             await self.__page.goto(self.BASE_URL)
-            await self.__page.get_by_role("textbox", name="UserName").fill(self.USERNAME)
-            await self.__page.get_by_role("textbox", name="Password").fill(self.PASSWORD)
+
+            await self.__page.get_by_role(
+                "textbox",
+                name="UserName"
+            ).fill(self.USERNAME)
+
+            await self.__page.get_by_role(
+                "textbox",
+                name="Password"
+            ).fill(self.PASSWORD)
             await self.__page.get_by_role("button", name="Login").click()
-            await expect(self.__page.locator("span", has_text="Products")).to_be_visible()
+            await expect(
+                self.__page.locator(
+                    "span",
+                    has_text="Products"
+                )
+            ).to_be_visible()
         except Exception as e:
             raise RuntimeError('LoginError ❌: login failed') from e
 
@@ -53,11 +68,11 @@ class SauceDemoAutomation:
         It iterates through all product items on the page and returns the
         price text if a match is found.
 
-        :param product_name: The exact name of the product to search for.
-        :type product_name: str
-        :returns: The price of the product as a string (e.g., '$29.99'),
+        param product_name: The exact name of the product to search for.
+        type product_name: str
+        returns: The price of the product as a string (e.g., '$29.99'),
                   or None if the product is not found.
-        :rtype: str | None
+        rtype: str | None
         """
 
         products = await self.__page.query_selector_all(".inventory_item")
@@ -76,11 +91,14 @@ class SauceDemoAutomation:
         3. Searches for the specified product.
         4. Closes the browser and stops Playwright in a finally block.
 
-        :param product_to_search: The name of the product to search for after logging in.
-        :type product_to_search: str
-        :returns: The price of the found product, or None if the search was unsuccessful.
-        :rtype: str | None
-        :raises RuntimeError: If any critical error occurs during setup or workflow execution.
+        param product_to_search: The name of the product to search for after
+        logging in.
+        type product_to_search: str
+        returns: The price of the found product, or None if the search was
+        unsuccessful.
+        rtype: str | None
+        raises RuntimeError: If any critical error occurs during setup or
+        workflow execution.
         """
 
         p = await async_playwright().start()
